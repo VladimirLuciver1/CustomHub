@@ -1,15 +1,17 @@
 local Kavo = {}
 
 local TweenService = game:GetService("TweenService")
-local tweeninfo = TweenInfo.new
 local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
 local HttpService = game:GetService("HttpService")
+
+local tweeninfo = TweenInfo.new
 
 local GetMouse = game.Players.LocalPlayer:GetMouse()
 
 local Utility = {}
 local Objects = {}
+
 function Kavo:DraggingEnabled(frame, parent)
 
 	parent = parent or frame
@@ -49,14 +51,6 @@ function Utility:TweenObject(obj, properties, duration, ...)
 	TweenService:Create(obj, tweeninfo(duration, ...), properties):Play()
 end
 
-
-local themes = {
-	SchemeColor = Color3.fromRGB(74, 99, 135),
-	Background = Color3.fromRGB(36, 37, 43),
-	Header = Color3.fromRGB(28, 29, 34),
-	TextColor = Color3.fromRGB(255,255,255),
-	ElementColor = Color3.fromRGB(32, 32, 38)
-}
 local themeStyles = {
 	BloodTheme = {
 		SchemeColor = Color3.fromRGB(227, 27, 27),
@@ -66,11 +60,8 @@ local themeStyles = {
 		ElementColor = Color3.fromRGB(20, 20, 20)
 	}
 }
-local oldTheme = ""
 
-local SettingsT = {
-
-}
+local SettingsT = {}
 
 local Name = "KavoConfig.JSON"
 
@@ -92,34 +83,21 @@ function Kavo:ToggleUI()
 end
 
 function Kavo.CreateLib(kavName, themeList)
-	if not themeList then
-		themeList = themes
-	end
 	if themeList == "BloodTheme" then
 		themeList = themeStyles.BloodTheme
-	else
-		if themeList.SchemeColor == nil then
-			themeList.SchemeColor = Color3.fromRGB(74, 99, 135)
-		elseif themeList.Background == nil then
-			themeList.Background = Color3.fromRGB(36, 37, 43)
-		elseif themeList.Header == nil then
-			themeList.Header = Color3.fromRGB(28, 29, 34)
-		elseif themeList.TextColor == nil then
-			themeList.TextColor = Color3.fromRGB(255,255,255)
-		elseif themeList.ElementColor == nil then
-			themeList.ElementColor = Color3.fromRGB(32, 32, 38)
-		end
 	end
 
 	themeList = themeList or {}
 	local selectedTab 
 	kavName = kavName or "Library"
 	table.insert(Kavo, kavName)
+
 	for i,v in pairs(game.CoreGui:GetChildren()) do
 		if v:IsA("ScreenGui") and v.Name == kavName then
 			v:Destroy()
 		end
 	end
+
 	local ScreenGui = Instance.new("ScreenGui")
 	local Main = Instance.new("Frame")
 	local MainCorner = Instance.new("UICorner")
