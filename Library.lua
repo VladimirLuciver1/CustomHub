@@ -7,7 +7,6 @@ local HttpService = game:GetService("HttpService")
 
 local tweeninfo = TweenInfo.new
 
-local CoreGui = game:GetService("CoreGui")
 local GetMouse = game.Players.LocalPlayer:GetMouse()
 
 local Utility = {}
@@ -76,10 +75,10 @@ end)
 local LibName = tostring(math.random(1, 100))..tostring(math.random(1,50))..tostring(math.random(1, 100))
 
 function Kavo:ToggleUI()
-	if CoreGui[LibName].Enabled then
-		CoreGui[LibName].Enabled = false
+	if game.CoreGui[LibName].Enabled then
+		game.CoreGui[LibName].Enabled = false
 	else
-		CoreGui[LibName].Enabled = true
+		game.CoreGui[LibName].Enabled = true
 	end
 end
 
@@ -93,7 +92,7 @@ function Kavo.CreateLib(kavName, themeList)
 	kavName = kavName or "Library"
 	table.insert(Kavo, kavName)
 
-	for i,v in pairs(Core:GetChildren()) do
+	for i,v in pairs(game.CoreGui:GetChildren()) do
 		if v:IsA("ScreenGui") and v.Name == kavName then
 			v:Destroy()
 		end
@@ -129,7 +128,7 @@ function Kavo.CreateLib(kavName, themeList)
 	blurFrame.Size = UDim2.new(0, 376, 0, 289)
 	blurFrame.ZIndex = 999
 
-	ScreenGui.Parent = Core
+	ScreenGui.Parent = game.CoreGui
 	ScreenGui.Name = LibName
 	ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 	ScreenGui.ResetOnSpawn = false
@@ -247,6 +246,7 @@ function Kavo.CreateLib(kavName, themeList)
 	infoContainer.ClipsDescendants = true
 	infoContainer.Position = UDim2.new(0.299047619, 0, 0.874213815, 0)
 	infoContainer.Size = UDim2.new(0, 368, 0, 33)
+
 
 	coroutine.wrap(function()
 		while task.wait() do
@@ -396,7 +396,7 @@ function Kavo.CreateLib(kavName, themeList)
 
 			sectionFrame.Name = "sectionFrame"
 			sectionFrame.Parent = page
-			sectionFrame.BackgroundColor3 = themeList.Background
+			sectionFrame.BackgroundColor3 = themeList.Background--36, 37, 43
 			sectionFrame.BorderSizePixel = 0
 
 			sectionlistoknvm.Name = "sectionlistoknvm"
@@ -417,7 +417,6 @@ function Kavo.CreateLib(kavName, themeList)
 					end
 				end
 			end
-
 			sectionHead.Name = "sectionHead"
 			sectionHead.Parent = sectionFrame
 			sectionHead.BackgroundColor3 = themeList.SchemeColor
@@ -442,7 +441,6 @@ function Kavo.CreateLib(kavName, themeList)
 			Objects[sectionName] = "TextColor3"
 			sectionName.TextSize = 14.000
 			sectionName.TextXAlignment = Enum.TextXAlignment.Left
-
 			if themeList.SchemeColor == Color3.fromRGB(255,255,255) then
 				Utility:TweenObject(sectionName, {TextColor3 = Color3.fromRGB(0,0,0)}, 0.2)
 			end 
@@ -460,6 +458,7 @@ function Kavo.CreateLib(kavName, themeList)
 			sectionElListing.Parent = sectionInners
 			sectionElListing.SortOrder = Enum.SortOrder.LayoutOrder
 			sectionElListing.Padding = UDim.new(0, 3)
+
 
 			coroutine.wrap(function()
 				while task.wait() do
@@ -479,7 +478,6 @@ function Kavo.CreateLib(kavName, themeList)
 			end
 			updateSectionFrame()
 			UpdateSize()
-
 			local Elements = {}
 			function Elements:NewButton(bname,tipINf, callback)
 				showLogo = showLogo or true
@@ -660,7 +658,6 @@ function Kavo.CreateLib(kavName, themeList)
 						viewDe = false
 					end
 				end)
-
 				coroutine.wrap(function()
 					while task.wait() do
 						if not hovering then
@@ -1843,7 +1840,7 @@ function Kavo.CreateLib(kavName, themeList)
 				keybindElement.MouseButton1Click:connect(function(e) 
 					if not focusing then
 						togName_2.Text = ". . ."
-						local a, b = UserInputService.InputBegan:Wait();
+						local a, b = game:GetService('UserInputService').InputBegan:Wait();
 						if a.KeyCode.Name ~= "Unknown" then
 							togName_2.Text = a.KeyCode.Name
 							oldKey = a.KeyCode.Name;
