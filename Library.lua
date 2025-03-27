@@ -50,46 +50,46 @@ end
 
 
 local themes = {
-	SchemeColor = Color3.fromRGB(74, 99, 135),
+	SchemeColor = Color3.fromRGB(64, 131, 214), -- Более яркий и насыщенный синий
 	Background = Color3.fromRGB(36, 37, 43),
 	Header = Color3.fromRGB(28, 29, 34),
-	TextColor = Color3.fromRGB(255,255,255),
+	TextColor = Color3.fromRGB(255, 255, 255),
 	ElementColor = Color3.fromRGB(32, 32, 38)
 }
 local themeStyles = {
 	DarkTheme = {
-		SchemeColor = Color3.fromRGB(64, 64, 64),
-		Background = Color3.fromRGB(0, 0, 0),
-		Header = Color3.fromRGB(0, 0, 0),
-		TextColor = Color3.fromRGB(255,255,255),
-		ElementColor = Color3.fromRGB(20, 20, 20)
+		SchemeColor = Color3.fromRGB(64, 131, 214), -- Согласованный с основной темой синий
+		Background = Color3.fromRGB(25, 25, 25),
+		Header = Color3.fromRGB(20, 20, 20),
+		TextColor = Color3.fromRGB(255, 255, 255),
+		ElementColor = Color3.fromRGB(32, 32, 32)
 	},
 	LightTheme = {
-		SchemeColor = Color3.fromRGB(150, 150, 150),
-		Background = Color3.fromRGB(255,255,255),
-		Header = Color3.fromRGB(200, 200, 200),
-		TextColor = Color3.fromRGB(0,0,0),
-		ElementColor = Color3.fromRGB(224, 224, 224)
+		SchemeColor = Color3.fromRGB(64, 131, 214), -- Согласованный с основной темой синий
+		Background = Color3.fromRGB(242, 242, 242),
+		Header = Color3.fromRGB(232, 232, 232),
+		TextColor = Color3.fromRGB(40, 40, 40),
+		ElementColor = Color3.fromRGB(220, 220, 220)
 	},
 	BloodTheme = {
 		SchemeColor = Color3.fromRGB(227, 27, 27),
-		Background = Color3.fromRGB(10, 10, 10),
-		Header = Color3.fromRGB(5, 5, 5),
-		TextColor = Color3.fromRGB(255,255,255),
-		ElementColor = Color3.fromRGB(20, 20, 20)
+		Background = Color3.fromRGB(20, 20, 20),
+		Header = Color3.fromRGB(10, 10, 10),
+		TextColor = Color3.fromRGB(255, 255, 255),
+		ElementColor = Color3.fromRGB(30, 30, 30)
 	},
 	GrapeTheme = {
 		SchemeColor = Color3.fromRGB(166, 71, 214),
 		Background = Color3.fromRGB(64, 50, 71),
 		Header = Color3.fromRGB(36, 28, 41),
-		TextColor = Color3.fromRGB(255,255,255),
+		TextColor = Color3.fromRGB(255, 255, 255),
 		ElementColor = Color3.fromRGB(74, 58, 84)
 	},
 	Ocean = {
 		SchemeColor = Color3.fromRGB(86, 76, 251),
 		Background = Color3.fromRGB(26, 32, 58),
 		Header = Color3.fromRGB(38, 45, 71),
-		TextColor = Color3.fromRGB(200, 200, 200),
+		TextColor = Color3.fromRGB(230, 230, 230),
 		ElementColor = Color3.fromRGB(38, 45, 71)
 	},
 	Midnight = {
@@ -117,8 +117,15 @@ local themeStyles = {
 		SchemeColor = Color3.fromRGB(0, 166, 58),
 		Background = Color3.fromRGB(31, 41, 43),
 		Header = Color3.fromRGB(22, 29, 31),
-		TextColor = Color3.fromRGB(255,255,255),
+		TextColor = Color3.fromRGB(255, 255, 255),
 		ElementColor = Color3.fromRGB(22, 29, 31)
+	},
+	Modern = { -- Новая современная тема
+		SchemeColor = Color3.fromRGB(0, 122, 255),
+		Background = Color3.fromRGB(30, 30, 35),
+		Header = Color3.fromRGB(25, 25, 30),
+		TextColor = Color3.fromRGB(255, 255, 255),
+		ElementColor = Color3.fromRGB(38, 38, 45)
 	}
 }
 local oldTheme = ""
@@ -170,6 +177,8 @@ function Kavo.CreateLib(kavName, themeList)
 		themeList = themeStyles.Synapse
 	elseif themeList == "Serpent" then
 		themeList = themeStyles.Serpent
+	elseif themeList == "Modern" then
+		themeList = themeStyles.Modern
 	else
 		if themeList.SchemeColor == nil then
 			themeList.SchemeColor = Color3.fromRGB(74, 99, 135)
@@ -209,8 +218,22 @@ function Kavo.CreateLib(kavName, themeList)
 	local pages = Instance.new("Frame")
 	local Pages = Instance.new("Folder")
 	local infoContainer = Instance.new("Frame")
-
 	local blurFrame = Instance.new("Frame")
+	
+	-- Добавляем эффект тени для главного окна
+	local MainShadow = Instance.new("ImageLabel")
+	MainShadow.Name = "MainShadow"
+	MainShadow.Parent = Main
+	MainShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+	MainShadow.BackgroundTransparency = 1
+	MainShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
+	MainShadow.Size = UDim2.new(1, 24, 1, 24)
+	MainShadow.ZIndex = 0
+	MainShadow.Image = "rbxassetid://6014261993"
+	MainShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+	MainShadow.ImageTransparency = 0.5
+	MainShadow.ScaleType = Enum.ScaleType.Slice
+	MainShadow.SliceCenter = Rect.new(49, 49, 450, 450)
 
 	Kavo:DraggingEnabled(MainHeader, Main)
 
@@ -235,7 +258,7 @@ function Kavo.CreateLib(kavName, themeList)
 	Main.Position = UDim2.new(0.336503863, 0, 0.275485456, 0)
 	Main.Size = UDim2.new(0, 525, 0, 318)
 
-	MainCorner.CornerRadius = UDim.new(0, 4)
+	MainCorner.CornerRadius = UDim.new(0, 6) -- Увеличили радиус
 	MainCorner.Name = "MainCorner"
 	MainCorner.Parent = Main
 
@@ -244,7 +267,8 @@ function Kavo.CreateLib(kavName, themeList)
 	MainHeader.BackgroundColor3 = themeList.Header
 	Objects[MainHeader] = "BackgroundColor3"
 	MainHeader.Size = UDim2.new(0, 525, 0, 29)
-	headerCover.CornerRadius = UDim.new(0, 4)
+	
+	headerCover.CornerRadius = UDim.new(0, 6) -- Увеличили радиус
 	headerCover.Name = "headerCover"
 	headerCover.Parent = MainHeader
 
@@ -263,7 +287,7 @@ function Kavo.CreateLib(kavName, themeList)
 	title.BorderSizePixel = 0
 	title.Position = UDim2.new(0.0171428565, 0, 0.344827592, 0)
 	title.Size = UDim2.new(0, 204, 0, 8)
-	title.Font = Enum.Font.Gotham
+	title.Font = Enum.Font.GothamBold -- Изменили шрифт
 	title.RichText = true
 	title.Text = kavName
 	title.TextColor3 = Color3.fromRGB(245, 245, 245)
@@ -276,20 +300,33 @@ function Kavo.CreateLib(kavName, themeList)
 	close.Position = UDim2.new(0.949999988, 0, 0.137999997, 0)
 	close.Size = UDim2.new(0, 21, 0, 21)
 	close.ZIndex = 2
-	close.Image = "rbxassetid://3926305904"
-	close.ImageRectOffset = Vector2.new(284, 4)
-	close.ImageRectSize = Vector2.new(24, 24)
+	close.Image = "rbxassetid://6035047409" -- Новая иконка закрытия
+	close.ImageColor3 = Color3.fromRGB(220, 220, 220)
+	close.ImageTransparency = 0.1
 	close.MouseButton1Click:Connect(function()
 		TweenService:Create(close, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {
 			ImageTransparency = 1
 		}):Play()
 		task.wait()
-		TweenService:Create(Main, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TweenService:Create(Main, TweenInfo.new(0.25, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
 			Size = UDim2.new(0,0,0,0),
 			Position = UDim2.new(0, Main.AbsolutePosition.X + (Main.AbsoluteSize.X / 2), 0, Main.AbsolutePosition.Y + (Main.AbsoluteSize.Y / 2))
 		}):Play()
-		task.wait(1)
+		task.wait(0.3) -- Уменьшили время ожидания
 		ScreenGui:Destroy()
+	end)
+	
+	-- Добавляем эффект наведения на кнопку закрытия
+	close.MouseEnter:Connect(function()
+		TweenService:Create(close, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			ImageColor3 = Color3.fromRGB(255, 100, 100)
+		}):Play()
+	end)
+	
+	close.MouseLeave:Connect(function()
+		TweenService:Create(close, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			ImageColor3 = Color3.fromRGB(220, 220, 220)
+		}):Play()
 	end)
 
 	MainSide.Name = "MainSide"
@@ -299,7 +336,7 @@ function Kavo.CreateLib(kavName, themeList)
 	MainSide.Position = UDim2.new(-7.4505806e-09, 0, 0.0911949649, 0)
 	MainSide.Size = UDim2.new(0, 149, 0, 289)
 
-	sideCorner.CornerRadius = UDim.new(0, 4)
+	sideCorner.CornerRadius = UDim.new(0, 6) -- Увеличили радиус
 	sideCorner.Name = "sideCorner"
 	sideCorner.Parent = MainSide
 
@@ -321,6 +358,7 @@ function Kavo.CreateLib(kavName, themeList)
 	tabListing.Name = "tabListing"
 	tabListing.Parent = tabFrames
 	tabListing.SortOrder = Enum.SortOrder.LayoutOrder
+	tabListing.Padding = UDim.new(0, 5) -- Добавили отступ между табами
 
 	pages.Name = "pages"
 	pages.Parent = Main
@@ -341,7 +379,15 @@ function Kavo.CreateLib(kavName, themeList)
 	infoContainer.ClipsDescendants = true
 	infoContainer.Position = UDim2.new(0.299047619, 0, 0.874213815, 0)
 	infoContainer.Size = UDim2.new(0, 368, 0, 33)
-
+	
+	-- Добавляем анимацию появления окна
+	Main.Size = UDim2.new(0, 0, 0, 0)
+	Main.Position = UDim2.new(0.5, 0, 0.5, 0)
+	
+	TweenService:Create(Main, TweenInfo.new(0.4, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
+		Size = UDim2.new(0, 525, 0, 318),
+		Position = UDim2.new(0.336503863, 0, 0.275485456, 0)
+	}):Play()
 
 	coroutine.wrap(function()
 		while task.wait() do
@@ -374,6 +420,7 @@ function Kavo.CreateLib(kavName, themeList)
 		tabName = tabName or "Tab"
 		local tabButton = Instance.new("TextButton")
 		local UICorner = Instance.new("UICorner")
+		local tabIcon = Instance.new("ImageLabel") -- Добавляем иконку для вкладки
 		local page = Instance.new("ScrollingFrame")
 		local pageListing = Instance.new("UIListLayout")
 
@@ -392,7 +439,7 @@ function Kavo.CreateLib(kavName, themeList)
 		page.BorderSizePixel = 0
 		page.Position = UDim2.new(0, 0, -0.00371747208, 0)
 		page.Size = UDim2.new(1, 0, 1, 0)
-		page.ScrollBarThickness = 5
+		page.ScrollBarThickness = 4 -- Уменьшили толщину полосы прокрутки
 		page.Visible = false
 		page.ScrollBarImageColor3 = Color3.fromRGB(themeList.SchemeColor.r * 255 - 16, themeList.SchemeColor.g * 255 - 15, themeList.SchemeColor.b * 255 - 28)
 
@@ -407,26 +454,59 @@ function Kavo.CreateLib(kavName, themeList)
 		Objects[tabButton] = "SchemeColor"
 		tabButton.Size = UDim2.new(0, 135, 0, 28)
 		tabButton.AutoButtonColor = false
-		tabButton.Font = Enum.Font.Gotham
-		tabButton.Text = tabName
+		tabButton.Font = Enum.Font.GothamSemibold -- Изменили шрифт
+		tabButton.Text = "  " .. tabName -- Добавили отступ для иконки
 		tabButton.TextColor3 = themeList.TextColor
 		Objects[tabButton] = "TextColor3"
 		tabButton.TextSize = 14.000
+		tabButton.TextXAlignment = Enum.TextXAlignment.Left -- Выравнивание текста по левому краю
 		tabButton.BackgroundTransparency = 1
+		
+		-- Добавляем иконку вкладки
+		tabIcon.Name = "tabIcon"
+		tabIcon.Parent = tabButton
+		tabIcon.BackgroundTransparency = 1
+		tabIcon.Position = UDim2.new(0.89, 0, 0.5, 0)
+		tabIcon.Size = UDim2.new(0, 16, 0, 16)
+		tabIcon.AnchorPoint = Vector2.new(1, 0.5)
+		tabIcon.Image = "rbxassetid://6031090990" -- Стандартная иконка для вкладки
+		tabIcon.ImageTransparency = 0.4
+		tabIcon.ImageColor3 = themeList.TextColor
+
+		UICorner.CornerRadius = UDim.new(0, 6) -- Увеличили радиус закругления
+		UICorner.Parent = tabButton
+		
+		-- Добавляем эффект наведения
+		local hovering = false
+		
+		tabButton.MouseEnter:Connect(function()
+			if not first and page.Visible == false then
+				hovering = true
+				TweenService:Create(tabButton, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+					BackgroundTransparency = 0.7
+				}):Play()
+			end
+		end)
+		
+		tabButton.MouseLeave:Connect(function()
+			if not first and page.Visible == false then
+				hovering = false
+				TweenService:Create(tabButton, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+					BackgroundTransparency = 1
+				}):Play()
+			end
+		end)
 
 		if first then
 			first = false
 			page.Visible = true
 			tabButton.BackgroundTransparency = 0
+			
 			UpdateSize()
 		else
 			page.Visible = false
 			tabButton.BackgroundTransparency = 1
 		end
-
-		UICorner.CornerRadius = UDim.new(0, 5)
-		UICorner.Parent = tabButton
-		table.insert(Tabs, tabName)
 
 		UpdateSize()
 		page.ChildAdded:Connect(UpdateSize)
@@ -440,23 +520,16 @@ function Kavo.CreateLib(kavName, themeList)
 			page.Visible = true
 			for i,v in next, tabFrames:GetChildren() do
 				if v:IsA("TextButton") then
-					if themeList.SchemeColor == Color3.fromRGB(255,255,255) then
-						Utility:TweenObject(v, {TextColor3 = Color3.fromRGB(255,255,255)}, 0.2)
-					end 
-					if themeList.SchemeColor == Color3.fromRGB(0,0,0) then
-						Utility:TweenObject(v, {TextColor3 = Color3.fromRGB(0,0,0)}, 0.2)
-					end 
-					Utility:TweenObject(v, {BackgroundTransparency = 1}, 0.2)
+					TweenService:Create(v, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+						BackgroundTransparency = 1
+					}):Play()
 				end
 			end
-			if themeList.SchemeColor == Color3.fromRGB(255,255,255) then
-				Utility:TweenObject(tabButton, {TextColor3 = Color3.fromRGB(0,0,0)}, 0.2)
-			end 
-			if themeList.SchemeColor == Color3.fromRGB(0,0,0) then
-				Utility:TweenObject(tabButton, {TextColor3 = Color3.fromRGB(255,255,255)}, 0.2)
-			end 
-			Utility:TweenObject(tabButton, {BackgroundTransparency = 0}, 0.2)
+			TweenService:Create(tabButton, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				BackgroundTransparency = 0
+			}):Play()
 		end)
+		
 		local Sections = {}
 		local focusing = false
 		local viewDe = false
@@ -470,6 +543,59 @@ function Kavo.CreateLib(kavName, themeList)
 			end
 		end)()
 
+		-- Добавление функции для создания эффекта всплеска
+		function Utility:CreateRipple(parent)
+			local ripple = Instance.new("Frame")
+			local UICorner = Instance.new("UICorner")
+			
+			ripple.Name = "ripple"
+			ripple.Parent = parent
+			ripple.AnchorPoint = Vector2.new(0.5, 0.5)
+			ripple.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			ripple.BackgroundTransparency = 0.8
+			ripple.Position = UDim2.new(0.5, 0, 0.5, 0)
+			ripple.Size = UDim2.new(0, 0, 0, 0)
+			
+			UICorner.CornerRadius = UDim.new(1, 0)
+			UICorner.Parent = ripple
+			
+			local x, y = GetMouse.X - ripple.AbsolutePosition.X, GetMouse.Y - ripple.AbsolutePosition.Y
+			ripple.Position = UDim2.new(0, x, 0, y)
+			
+			local maxSize = math.max(parent.AbsoluteSize.X, parent.AbsoluteSize.Y) * 2
+			
+			TweenService:Create(ripple, TweenInfo.new(0.5, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
+				Size = UDim2.new(0, maxSize, 0, maxSize),
+				BackgroundTransparency = 1
+			}):Play()
+			
+			task.delay(0.5, function()
+				ripple:Destroy()
+			end)
+		end
+
+		-- Добавление функции для создания тени
+		function Utility:CreateShadow(parent, transparency)
+			transparency = transparency or 0.5
+			
+			local shadow = Instance.new("ImageLabel")
+			shadow.Name = "Shadow"
+			shadow.Parent = parent
+			shadow.AnchorPoint = Vector2.new(0.5, 0.5)
+			shadow.BackgroundTransparency = 1
+			shadow.Position = UDim2.new(0.5, 0, 0.5, 0)
+			shadow.Size = UDim2.new(1, 24, 1, 24)
+			shadow.ZIndex = 0
+			shadow.Image = "rbxassetid://6014261993"
+			shadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+			shadow.ImageTransparency = transparency
+			shadow.ScaleType = Enum.ScaleType.Slice
+			shadow.SliceCenter = Rect.new(49, 49, 450, 450)
+			
+			return shadow
+		end
+
+		-- Обновление функции для создания секции с эффектами и тенями
 		function Sections:NewSection(secName, hidden)
 			secName = secName or "Section"
 			local sectionFunctions = {}
@@ -482,6 +608,9 @@ function Kavo.CreateLib(kavName, themeList)
 			local sectionName = Instance.new("TextLabel")
 			local sectionInners = Instance.new("Frame")
 			local sectionElListing = Instance.new("UIListLayout")
+			
+			-- Добавляем тень для секции
+			local sectionShadow = Utility:CreateShadow(sectionFrame, 0.7)
 
 			if hidden then
 				sectionHead.Visible = false
@@ -497,7 +626,7 @@ function Kavo.CreateLib(kavName, themeList)
 			sectionlistoknvm.Name = "sectionlistoknvm"
 			sectionlistoknvm.Parent = sectionFrame
 			sectionlistoknvm.SortOrder = Enum.SortOrder.LayoutOrder
-			sectionlistoknvm.Padding = UDim.new(0, 5)
+			sectionlistoknvm.Padding = UDim.new(0, 8) -- Увеличили отступ между секциями
 
 			for i,v in pairs(sectionInners:GetChildren()) do
 				while task.wait() do
@@ -512,13 +641,26 @@ function Kavo.CreateLib(kavName, themeList)
 					end
 				end
 			end
+			
 			sectionHead.Name = "sectionHead"
 			sectionHead.Parent = sectionFrame
 			sectionHead.BackgroundColor3 = themeList.SchemeColor
 			Objects[sectionHead] = "BackgroundColor3"
-			sectionHead.Size = UDim2.new(0, 352, 0, 33)
+			
+			-- Добавляем эффект градиента для заголовка секции
+			local gradient = Instance.new("UIGradient")
+			gradient.Rotation = 90
+			gradient.Color = ColorSequence.new({
+				ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
+				ColorSequenceKeypoint.new(1, Color3.fromRGB(220, 220, 220))
+			})
+			gradient.Transparency = NumberSequence.new({
+				NumberSequenceKeypoint.new(0, 0.8),
+				NumberSequenceKeypoint.new(1, 0.9)
+			})
+			gradient.Parent = sectionHead
 
-			sHeadCorner.CornerRadius = UDim.new(0, 4)
+			sHeadCorner.CornerRadius = UDim.new(0, 6) -- Увеличили радиус
 			sHeadCorner.Name = "sHeadCorner"
 			sHeadCorner.Parent = sectionHead
 
@@ -529,11 +671,13 @@ function Kavo.CreateLib(kavName, themeList)
 			sectionName.BorderColor3 = Color3.fromRGB(27, 42, 53)
 			sectionName.Position = UDim2.new(0.0198863633, 0, 0, 0)
 			sectionName.Size = UDim2.new(0.980113626, 0, 1, 0)
-			sectionName.Font = Enum.Font.Gotham
+			sectionName.Font = Enum.Font.GothamBold -- Изменили шрифт
 			sectionName.Text = secName
 			sectionName.RichText = true
 			sectionName.TextColor3 = themeList.TextColor
 			Objects[sectionName] = "TextColor3"
+			
+			if themeList.SchemeColor == Color3.fromRGB(255,255,255) then
 			sectionName.TextSize = 14.000
 			sectionName.TextXAlignment = Enum.TextXAlignment.Left
 			if themeList.SchemeColor == Color3.fromRGB(255,255,255) then
@@ -574,7 +718,7 @@ function Kavo.CreateLib(kavName, themeList)
 			updateSectionFrame()
 			UpdateSize()
 			local Elements = {}
-			function Elements:NewButton(bname,tipINf, callback)
+			function Elements:NewButton(bname, tipINf, callback)
 				showLogo = showLogo or true
 				local ButtonFunction = {}
 				tipINf = tipINf or "Tip: Clicking this nothing will happen!"
@@ -602,7 +746,7 @@ function Kavo.CreateLib(kavName, themeList)
 				buttonElement.TextSize = 14.000
 				Objects[buttonElement] = "BackgroundColor3"
 
-				UICorner.CornerRadius = UDim.new(0, 4)
+				UICorner.CornerRadius = UDim.new(0, 6) -- Увеличили радиус
 				UICorner.Parent = buttonElement
 
 				viewInfo.Name = "viewInfo"
@@ -612,11 +756,9 @@ function Kavo.CreateLib(kavName, themeList)
 				viewInfo.Position = UDim2.new(0.930000007, 0, 0.151999995, 0)
 				viewInfo.Size = UDim2.new(0, 23, 0, 23)
 				viewInfo.ZIndex = 2
-				viewInfo.Image = "rbxassetid://3926305904"
+				viewInfo.Image = "rbxassetid://6026568198" -- Современная иконка информации
 				viewInfo.ImageColor3 = themeList.SchemeColor
 				Objects[viewInfo] = "ImageColor3"
-				viewInfo.ImageRectOffset = Vector2.new(764, 764)
-				viewInfo.ImageRectSize = Vector2.new(36, 36)
 
 				Sample.Name = "Sample"
 				Sample.Parent = buttonElement
@@ -624,8 +766,7 @@ function Kavo.CreateLib(kavName, themeList)
 				Sample.BackgroundTransparency = 1.000
 				Sample.Image = "http://www.roblox.com/asset/?id=4560909609"
 				Sample.ImageColor3 = themeList.SchemeColor
-				Objects[Sample] = "ImageColor3"
-				Sample.ImageTransparency = 0.600
+				Sample.ImageTransparency = 0.6
 
 				local moreInfo = Instance.new("TextLabel")
 				local UICorner = Instance.new("UICorner")
@@ -645,7 +786,7 @@ function Kavo.CreateLib(kavName, themeList)
 				moreInfo.TextXAlignment = Enum.TextXAlignment.Left
 				Objects[moreInfo] = "BackgroundColor3"
 
-				UICorner.CornerRadius = UDim.new(0, 4)
+				UICorner.CornerRadius = UDim.new(0, 6) -- Увеличили радиус
 				UICorner.Parent = moreInfo
 
 				touch.Name = "touch"
@@ -655,11 +796,9 @@ function Kavo.CreateLib(kavName, themeList)
 				touch.BorderColor3 = Color3.fromRGB(27, 42, 53)
 				touch.Position = UDim2.new(0.0199999996, 0, 0.180000007, 0)
 				touch.Size = UDim2.new(0, 21, 0, 21)
-				touch.Image = "rbxassetid://3926305904"
+				touch.Image = "rbxassetid://6026663699" -- Современная иконка касания
 				touch.ImageColor3 = themeList.SchemeColor
 				Objects[touch] = "SchemeColor"
-				touch.ImageRectOffset = Vector2.new(84, 204)
-				touch.ImageRectSize = Vector2.new(36, 36)
 				touch.ImageTransparency = 0
 
 				btnInfo.Name = "btnInfo"
@@ -692,6 +831,19 @@ function Kavo.CreateLib(kavName, themeList)
 				btn.MouseButton1Click:Connect(function()
 					if not focusing then
 						callback()
+						
+						-- Эффект нажатия
+						TweenService:Create(btn, TweenInfo.new(0.1, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
+							BackgroundColor3 = Color3.fromRGB(themeList.SchemeColor.r * 255 - 30, themeList.SchemeColor.g * 255 - 30, themeList.SchemeColor.b * 255 - 30)
+						}):Play()
+						
+						task.wait(0.1)
+						
+						TweenService:Create(btn, TweenInfo.new(0.1, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
+							BackgroundColor3 = themeList.ElementColor
+						}):Play()
+						
+						-- Эффект волны при клике
 						local c = sample:Clone()
 						c.Parent = btn
 						local x, y = (GetMouse.X - c.AbsolutePosition.X), (GetMouse.Y - c.AbsolutePosition.Y)
@@ -716,25 +868,29 @@ function Kavo.CreateLib(kavName, themeList)
 						Utility:TweenObject(blurFrame, {BackgroundTransparency = 1}, 0.2)
 					end
 				end)
+				
 				local hovering = false
 				btn.MouseEnter:Connect(function()
 					if not focusing then
-						TweenService:Create(btn, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+						hovering = true
+						TweenService:Create(btn, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
 							BackgroundColor3 = Color3.fromRGB(themeList.ElementColor.r * 255 + 8, themeList.ElementColor.g * 255 + 9, themeList.ElementColor.b * 255 + 10)
 						}):Play()
-						hovering = true
 					end
 				end)
+				
 				btn.MouseLeave:Connect(function()
 					if not focusing then 
-						TweenService:Create(btn, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+						hovering = false
+						TweenService:Create(btn, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
 							BackgroundColor3 = themeList.ElementColor
 						}):Play()
-						hovering = false
 					end
 				end)
+
 				viewInfo.MouseButton1Click:Connect(function()
 					if not viewDe then
+						
 						viewDe = true
 						focusing = true
 						for i,v in next, infoContainer:GetChildren() do
@@ -979,8 +1135,10 @@ function Kavo.CreateLib(kavName, themeList)
 
 				local toggleElement = Instance.new("TextButton")
 				local UICorner = Instance.new("UICorner")
-				local toggleDisabled = Instance.new("ImageLabel")
-				local toggleEnabled = Instance.new("ImageLabel")
+				local toggleDisabled = Instance.new("Frame") -- Изменили на Frame для современного вида
+				local toggleEnabled = Instance.new("Frame") -- Изменили на Frame для современного вида
+				local toggleCircle = Instance.new("Frame") -- Добавили круг для переключателя
+				local circleCorner = Instance.new("UICorner") -- Закругление для круга
 				local togName = Instance.new("TextLabel")
 				local viewInfo = Instance.new("ImageButton")
 				local Sample = Instance.new("ImageLabel")
@@ -996,37 +1154,51 @@ function Kavo.CreateLib(kavName, themeList)
 				toggleElement.TextColor3 = Color3.fromRGB(0, 0, 0)
 				toggleElement.TextSize = 14.000
 
-				UICorner.CornerRadius = UDim.new(0, 4)
+				UICorner.CornerRadius = UDim.new(0, 6) -- Увеличили радиус
 				UICorner.Parent = toggleElement
 
+				-- Современный дизайн переключателя (фон)
 				toggleDisabled.Name = "toggleDisabled"
 				toggleDisabled.Parent = toggleElement
-				toggleDisabled.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-				toggleDisabled.BackgroundTransparency = 1.000
-				toggleDisabled.Position = UDim2.new(0.0199999996, 0, 0.180000007, 0)
-				toggleDisabled.Size = UDim2.new(0, 21, 0, 21)
-				toggleDisabled.Image = "rbxassetid://3926309567"
-				toggleDisabled.ImageColor3 = themeList.SchemeColor
-				toggleDisabled.ImageRectOffset = Vector2.new(628, 420)
-				toggleDisabled.ImageRectSize = Vector2.new(48, 48)
+				toggleDisabled.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+				toggleDisabled.BackgroundTransparency = 0.7
+				toggleDisabled.Position = UDim2.new(0.0199999996, 0, 0.5, 0)
+				toggleDisabled.Size = UDim2.new(0, 36, 0, 18)
+				toggleDisabled.AnchorPoint = Vector2.new(0, 0.5)
+				
+				local toggleDisabledCorner = Instance.new("UICorner")
+				toggleDisabledCorner.CornerRadius = UDim.new(1, 0)
+				toggleDisabledCorner.Parent = toggleDisabled
 
+				-- Современный дизайн переключателя (активный)
 				toggleEnabled.Name = "toggleEnabled"
 				toggleEnabled.Parent = toggleElement
-				toggleEnabled.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-				toggleEnabled.BackgroundTransparency = 1.000
-				toggleEnabled.Position = UDim2.new(0.0199999996, 0, 0.180000007, 0)
-				toggleEnabled.Size = UDim2.new(0, 21, 0, 21)
-				toggleEnabled.Image = "rbxassetid://3926309567"
-				toggleEnabled.ImageColor3 = themeList.SchemeColor
-				toggleEnabled.ImageRectOffset = Vector2.new(784, 420)
-				toggleEnabled.ImageRectSize = Vector2.new(48, 48)
-				toggleEnabled.ImageTransparency = 1.000
+				toggleEnabled.BackgroundColor3 = themeList.SchemeColor
+				toggleEnabled.BackgroundTransparency = 1 -- Скрыт по умолчанию
+				toggleEnabled.Position = UDim2.new(0.0199999996, 0, 0.5, 0)
+				toggleEnabled.Size = UDim2.new(0, 36, 0, 18)
+				toggleEnabled.AnchorPoint = Vector2.new(0, 0.5)
+				
+				local toggleEnabledCorner = Instance.new("UICorner")
+				toggleEnabledCorner.CornerRadius = UDim.new(1, 0)
+				toggleEnabledCorner.Parent = toggleEnabled
+				
+				-- Круг переключателя
+				toggleCircle.Name = "toggleCircle"
+				toggleCircle.Parent = toggleElement
+				toggleCircle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+				toggleCircle.Position = UDim2.new(0.0199999996, 2, 0.5, 0)
+				toggleCircle.Size = UDim2.new(0, 14, 0, 14)
+				toggleCircle.AnchorPoint = Vector2.new(0, 0.5)
+				
+				circleCorner.CornerRadius = UDim.new(1, 0)
+				circleCorner.Parent = toggleCircle
 
 				togName.Name = "togName"
 				togName.Parent = toggleElement
 				togName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 				togName.BackgroundTransparency = 1.000
-				togName.Position = UDim2.new(0.096704483, 0, 0.272727281, 0)
+				togName.Position = UDim2.new(0.15, 0, 0.272727281, 0) -- Изменили позицию из-за нового переключателя
 				togName.Size = UDim2.new(0, 288, 0, 14)
 				togName.Font = Enum.Font.GothamSemibold
 				togName.Text = tname
@@ -1042,10 +1214,8 @@ function Kavo.CreateLib(kavName, themeList)
 				viewInfo.Position = UDim2.new(0.930000007, 0, 0.151999995, 0)
 				viewInfo.Size = UDim2.new(0, 23, 0, 23)
 				viewInfo.ZIndex = 2
-				viewInfo.Image = "rbxassetid://3926305904"
+				viewInfo.Image = "rbxassetid://6026568198" -- Современная иконка
 				viewInfo.ImageColor3 = themeList.SchemeColor
-				viewInfo.ImageRectOffset = Vector2.new(764, 764)
-				viewInfo.ImageRectSize = Vector2.new(36, 36)
 
 				Sample.Name = "Sample"
 				Sample.Parent = toggleElement
@@ -1071,10 +1241,8 @@ function Kavo.CreateLib(kavName, themeList)
 				moreInfo.TextSize = 14.000
 				moreInfo.TextXAlignment = Enum.TextXAlignment.Left
 
-				UICorner.CornerRadius = UDim.new(0, 4)
+				UICorner.CornerRadius = UDim.new(0, 6) -- Увеличили радиус
 				UICorner.Parent = moreInfo
-
-			
 
 				if themeList.SchemeColor == Color3.fromRGB(255,255,255) then
 					Utility:TweenObject(moreInfo, {TextColor3 = Color3.fromRGB(0,0,0)}, 0.2)
@@ -1083,20 +1251,24 @@ function Kavo.CreateLib(kavName, themeList)
 					Utility:TweenObject(moreInfo, {TextColor3 = Color3.fromRGB(255,255,255)}, 0.2)
 				end 
 
-				local btn = toggleElement
-				local sample = Sample
-				local img = toggleEnabled
-				local infBtn = viewInfo
-
 				updateSectionFrame()
 				UpdateSize()
+
+				local btn = toggleElement
+				local sample = Sample
+				local hover = false
 
 				btn.MouseButton1Click:Connect(function()
 					if not focusing then
 						if toggled == false then
-							TweenService:Create(img, TweenInfo.new(0.11, Enum.EasingStyle.Linear,Enum.EasingDirection.In), {
-								ImageTransparency = 0
+							-- Анимация переключения на ON
+							TweenService:Create(toggleEnabled, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+								BackgroundTransparency = 0
 							}):Play()
+							TweenService:Create(toggleCircle, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+								Position = UDim2.new(0.0199999996, 20, 0.5, 0)
+							}):Play()
+							
 							local c = sample:Clone()
 							c.Parent = btn
 							local x, y = (GetMouse.X - c.AbsolutePosition.X), (GetMouse.Y - c.AbsolutePosition.Y)
@@ -1114,9 +1286,14 @@ function Kavo.CreateLib(kavName, themeList)
 							end
 							c:Destroy()
 						else
-							TweenService:Create(img, TweenInfo.new(0.11, Enum.EasingStyle.Linear,Enum.EasingDirection.In), {
-								ImageTransparency = 1
+							-- Анимация переключения на OFF
+							TweenService:Create(toggleEnabled, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+								BackgroundTransparency = 1
 							}):Play()
+							TweenService:Create(toggleCircle, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+								Position = UDim2.new(0.0199999996, 2, 0.5, 0)
+							}):Play()
+							
 							local c = sample:Clone()
 							c.Parent = btn
 							local x, y = (GetMouse.X - c.AbsolutePosition.X), (GetMouse.Y - c.AbsolutePosition.Y)
@@ -1144,31 +1321,14 @@ function Kavo.CreateLib(kavName, themeList)
 						Utility:TweenObject(blurFrame, {BackgroundTransparency = 1}, 0.2)
 					end
 				end)
-				local hovering = false
-				btn.MouseEnter:Connect(function()
-					if not focusing then
-						TweenService:Create(btn, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
-							BackgroundColor3 = Color3.fromRGB(themeList.ElementColor.r * 255 + 8, themeList.ElementColor.g * 255 + 9, themeList.ElementColor.b * 255 + 10)
-						}):Play()
-						hovering = true
-					end 
-				end)
-				btn.MouseLeave:Connect(function()
-					if not focusing then
-						TweenService:Create(btn, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
-							BackgroundColor3 = themeList.ElementColor
-						}):Play()
-						hovering = false
-					end
-				end)
-
+				
 				coroutine.wrap(function()
 					while task.wait() do
-						if not hovering then
+						if not hover then
 							toggleElement.BackgroundColor3 = themeList.ElementColor
 						end
-						toggleDisabled.ImageColor3 = themeList.SchemeColor
-						toggleEnabled.ImageColor3 = themeList.SchemeColor
+						toggleDisabled.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+						toggleEnabled.BackgroundColor3 = themeList.SchemeColor
 						togName.TextColor3 = themeList.TextColor
 						viewInfo.ImageColor3 = themeList.SchemeColor
 						Sample.ImageColor3 = themeList.SchemeColor
@@ -1203,14 +1363,20 @@ function Kavo.CreateLib(kavName, themeList)
 					end
 					if isTogOn then
 						toggled = true
-						TweenService:Create(img, TweenInfo.new(0.11, Enum.EasingStyle.Linear,Enum.EasingDirection.In), {
-							ImageTransparency = 0
+						TweenService:Create(toggleEnabled, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+							BackgroundTransparency = 0
+						}):Play()
+						TweenService:Create(toggleCircle, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+							Position = UDim2.new(0.0199999996, 20, 0.5, 0)
 						}):Play()
 						pcall(callback, toggled)
 					else
 						toggled = false
-						TweenService:Create(img, TweenInfo.new(0.11, Enum.EasingStyle.Linear,Enum.EasingDirection.In), {
-							ImageTransparency = 1
+						TweenService:Create(toggleEnabled, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+							BackgroundTransparency = 1
+						}):Play()
+						TweenService:Create(toggleCircle, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+							Position = UDim2.new(0.0199999996, 2, 0.5, 0)
 						}):Play()
 						pcall(callback, toggled)
 					end
@@ -1235,6 +1401,8 @@ function Kavo.CreateLib(kavName, themeList)
 				local UIListLayout = Instance.new("UIListLayout")
 				local sliderDrag = Instance.new("Frame")
 				local UICorner_3 = Instance.new("UICorner")
+				local sliderCircle = Instance.new("Frame") -- Добавляем круглый маркер
+				local UICorner_4 = Instance.new("UICorner") -- Закругление для круга
 				local write = Instance.new("ImageLabel")
 				local val = Instance.new("TextLabel")
 
@@ -1249,7 +1417,7 @@ function Kavo.CreateLib(kavName, themeList)
 				sliderElement.TextColor3 = Color3.fromRGB(0, 0, 0)
 				sliderElement.TextSize = 14.000
 
-				UICorner.CornerRadius = UDim.new(0, 4)
+				UICorner.CornerRadius = UDim.new(0, 6) -- Увеличили радиус
 				UICorner.Parent = sliderElement
 
 				togName.Name = "togName"
@@ -1272,23 +1440,23 @@ function Kavo.CreateLib(kavName, themeList)
 				viewInfo.Position = UDim2.new(0.930000007, 0, 0.151999995, 0)
 				viewInfo.Size = UDim2.new(0, 23, 0, 23)
 				viewInfo.ZIndex = 2
-				viewInfo.Image = "rbxassetid://3926305904"
+				viewInfo.Image = "rbxassetid://6026568198" -- Современная иконка
 				viewInfo.ImageColor3 = themeList.SchemeColor
-				viewInfo.ImageRectOffset = Vector2.new(764, 764)
-				viewInfo.ImageRectSize = Vector2.new(36, 36)
 
 				sliderBtn.Name = "sliderBtn"
 				sliderBtn.Parent = sliderElement
-				sliderBtn.BackgroundColor3 = Color3.fromRGB(themeList.ElementColor.r * 255 + 5, themeList.ElementColor.g * 255 + 5, themeList.ElementColor.b * 255  + 5)
+				sliderBtn.BackgroundColor3 = Color3.fromRGB(themeList.ElementColor.r * 255 + 5, themeList.ElementColor.g * 255 + 5, themeList.ElementColor.b * 255 + 5)
 				sliderBtn.BorderSizePixel = 0
-				sliderBtn.Position = UDim2.new(0.488749951, 0, 0.393939406, 0)
+				sliderBtn.Position = UDim2.new(0.488749951, 0, 0.5, 0) -- Центрировали по вертикали
 				sliderBtn.Size = UDim2.new(0, 149, 0, 6)
 				sliderBtn.AutoButtonColor = false
 				sliderBtn.Font = Enum.Font.SourceSans
 				sliderBtn.Text = ""
 				sliderBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
 				sliderBtn.TextSize = 14.000
+				sliderBtn.AnchorPoint = Vector2.new(0, 0.5) -- Центрировали по вертикали
 
+				UICorner_2.CornerRadius = UDim.new(1, 0) -- Полностью закругленный слайдер
 				UICorner_2.Parent = sliderBtn
 
 				UIListLayout.Parent = sliderBtn
@@ -1302,7 +1470,20 @@ function Kavo.CreateLib(kavName, themeList)
 				sliderDrag.BorderSizePixel = 0
 				sliderDrag.Size = UDim2.new(-0.671140969, 100,1,0)
 
+				UICorner_3.CornerRadius = UDim.new(1, 0) -- Полностью закругленный слайдер
 				UICorner_3.Parent = sliderDrag
+				
+				-- Добавляем круглый маркер для слайдера
+				sliderCircle.Name = "sliderCircle"
+				sliderCircle.Parent = sliderElement
+				sliderCircle.BackgroundColor3 = themeList.SchemeColor
+				sliderCircle.Position = UDim2.new(0.488749951, 0, 0.5, 0)
+				sliderCircle.Size = UDim2.new(0, 12, 0, 12)
+				sliderCircle.AnchorPoint = Vector2.new(0, 0.5)
+				sliderCircle.ZIndex = 3
+				
+				UICorner_4.CornerRadius = UDim.new(1, 0)
+				UICorner_4.Parent = sliderCircle
 
 				write.Name = "write"
 				write.Parent = sliderElement
@@ -1311,10 +1492,10 @@ function Kavo.CreateLib(kavName, themeList)
 				write.BorderColor3 = Color3.fromRGB(27, 42, 53)
 				write.Position = UDim2.new(0.0199999996, 0, 0.180000007, 0)
 				write.Size = UDim2.new(0, 21, 0, 21)
-				write.Image = "rbxassetid://3926307971"
+				write.Image = "rbxassetid://6026663699" -- Современная иконка
 				write.ImageColor3 = themeList.SchemeColor
-				write.ImageRectOffset = Vector2.new(404, 164)
-				write.ImageRectSize = Vector2.new(36, 36)
+				write.ImageRectOffset = Vector2.new(0, 0)
+				write.ImageRectSize = Vector2.new(0, 0)
 
 				val.Name = "val"
 				val.Parent = sliderElement
@@ -1345,6 +1526,7 @@ function Kavo.CreateLib(kavName, themeList)
 				moreInfo.RichText = true
 				moreInfo.TextXAlignment = Enum.TextXAlignment.Left
 
+				UICorner.CornerRadius = UDim.new(0, 6) -- Увеличили радиус
 				UICorner.CornerRadius = UDim.new(0, 4)
 				UICorner.Parent = moreInfo
 
@@ -1476,6 +1658,7 @@ function Kavo.CreateLib(kavName, themeList)
 				local UICorner = Instance.new("UICorner")
 				local UIListLayout = Instance.new("UIListLayout")
 				local Sample = Instance.new("ImageLabel")
+				local dropdownShadow = Utility:CreateShadow(dropFrame, 0.7) -- Добавляем тень
 
 				Sample.Name = "Sample"
 				Sample.Parent = dropOpen
@@ -1504,11 +1687,30 @@ function Kavo.CreateLib(kavName, themeList)
 				dropOpen.TextColor3 = Color3.fromRGB(0, 0, 0)
 				dropOpen.TextSize = 14.000
 				dropOpen.ClipsDescendants = true
+				
+				-- Добавляем иконку стрелки
+				local dropdownArrow = Instance.new("ImageLabel")
+				dropdownArrow.Name = "dropdownArrow"
+				dropdownArrow.Parent = dropOpen
+				dropdownArrow.BackgroundTransparency = 1
+				dropdownArrow.Position = UDim2.new(0.93, 0, 0.5, 0)
+				dropdownArrow.Size = UDim2.new(0, 18, 0, 18)
+				dropdownArrow.AnchorPoint = Vector2.new(0.5, 0.5)
+				dropdownArrow.Image = "rbxassetid://6031091004" -- Иконка стрелки вниз
+				dropdownArrow.ImageColor3 = themeList.SchemeColor
+				dropdownArrow.Rotation = 0 -- Изначально направлена вниз
+				
 				dropOpen.MouseButton1Click:Connect(function()
 					if not focusing then
 						if opened then
 							opened = false
-							dropFrame:TweenSize(UDim2.new(0, 352, 0, 33), "InOut", "Linear", 0.08)
+							dropFrame:TweenSize(UDim2.new(0, 352, 0, 33), "InOut", "Quart", 0.15)
+							
+							-- Анимируем стрелку вниз
+							TweenService:Create(dropdownArrow, TweenInfo.new(0.15, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
+								Rotation = 0
+							}):Play()
+							
 							task.wait(0.1)
 							updateSectionFrame()
 							UpdateSize()
@@ -1530,7 +1732,13 @@ function Kavo.CreateLib(kavName, themeList)
 							c:Destroy()
 						else
 							opened = true
-							dropFrame:TweenSize(UDim2.new(0, 352, 0, UIListLayout.AbsoluteContentSize.Y), "InOut", "Linear", 0.08, true)
+							dropFrame:TweenSize(UDim2.new(0, 352, 0, UIListLayout.AbsoluteContentSize.Y), "InOut", "Quart", 0.15, true)
+							
+							-- Анимируем стрелку вверх
+							TweenService:Create(dropdownArrow, TweenInfo.new(0.15, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
+								Rotation = 180
+							}):Play()
+							
 							task.wait(0.1)
 							updateSectionFrame()
 							UpdateSize()
@@ -1567,10 +1775,8 @@ function Kavo.CreateLib(kavName, themeList)
 				listImg.BorderColor3 = Color3.fromRGB(27, 42, 53)
 				listImg.Position = UDim2.new(0.0199999996, 0, 0.180000007, 0)
 				listImg.Size = UDim2.new(0, 21, 0, 21)
-				listImg.Image = "rbxassetid://3926305904"
+				listImg.Image = "rbxassetid://6026568247" -- Современная иконка списка
 				listImg.ImageColor3 = themeList.SchemeColor
-				listImg.ImageRectOffset = Vector2.new(644, 364)
-				listImg.ImageRectSize = Vector2.new(36, 36)
 
 				itemTextbox.Name = "itemTextbox"
 				itemTextbox.Parent = dropOpen
@@ -1589,26 +1795,14 @@ function Kavo.CreateLib(kavName, themeList)
 				viewInfo.Parent = dropOpen
 				viewInfo.BackgroundTransparency = 1.000
 				viewInfo.LayoutOrder = 9
-				viewInfo.Position = UDim2.new(0.930000007, 0, 0.151999995, 0)
+				viewInfo.Position = UDim2.new(0.85, 0, 0.151999995, 0) -- Сдвинули влево для стрелки
 				viewInfo.Size = UDim2.new(0, 23, 0, 23)
 				viewInfo.ZIndex = 2
-				viewInfo.Image = "rbxassetid://3926305904"
+				viewInfo.Image = "rbxassetid://6026568198" -- Современная иконка информации
 				viewInfo.ImageColor3 = themeList.SchemeColor
-				viewInfo.ImageRectOffset = Vector2.new(764, 764)
-				viewInfo.ImageRectSize = Vector2.new(36, 36)
 
-				UICorner.CornerRadius = UDim.new(0, 4)
+				UICorner.CornerRadius = UDim.new(0, 6) -- Увеличили радиус
 				UICorner.Parent = dropOpen
-
-				local Sample = Instance.new("ImageLabel")
-
-				Sample.Name = "Sample"
-				Sample.Parent = dropOpen
-				Sample.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-				Sample.BackgroundTransparency = 1.000
-				Sample.Image = "http://www.roblox.com/asset/?id=4560909609"
-				Sample.ImageColor3 = themeList.SchemeColor
-				Sample.ImageTransparency = 0.600
 
 				UIListLayout.Parent = dropFrame
 				UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
@@ -2628,4 +2822,109 @@ function Kavo.CreateLib(kavName, themeList)
 	end  
 	return Tabs
 end
+
+-- Добавляем новую функцию для создания современных уведомлений
+function Kavo:Notification(title, message, duration)
+	title = title or "Notification"
+	message = message or "This is a notification"
+	duration = duration or 3
+	
+	local notificationContainer = Instance.new("Frame")
+	local notificationFrame = Instance.new("Frame")
+	local notificationCorner = Instance.new("UICorner")
+	local titleLabel = Instance.new("TextLabel")
+	local messageLabel = Instance.new("TextLabel")
+	local closeButton = Instance.new("ImageButton")
+	local notificationShadow = Utility:CreateShadow(notificationFrame, 0.5)
+	
+	notificationContainer.Name = "NotificationContainer"
+	notificationContainer.Parent = game.CoreGui[LibName]
+	notificationContainer.BackgroundTransparency = 1
+	notificationContainer.Position = UDim2.new(1, -360, 0, 80)
+	notificationContainer.Size = UDim2.new(0, 350, 0, 80)
+	notificationContainer.ClipsDescendants = true
+	
+	notificationFrame.Name = "NotificationFrame"
+	notificationFrame.Parent = notificationContainer
+	notificationFrame.BackgroundColor3 = themeList.Background
+	notificationFrame.Position = UDim2.new(1, 0, 0, 0)
+	notificationFrame.Size = UDim2.new(1, 0, 1, 0)
+	
+	notificationCorner.CornerRadius = UDim.new(0, 8)
+	notificationCorner.Parent = notificationFrame
+	
+	titleLabel.Name = "TitleLabel"
+	titleLabel.Parent = notificationFrame
+	titleLabel.BackgroundTransparency = 1
+	titleLabel.Position = UDim2.new(0, 12, 0, 8)
+	titleLabel.Size = UDim2.new(0, 300, 0, 20)
+	titleLabel.Font = Enum.Font.GothamBold
+	titleLabel.Text = title
+	titleLabel.TextColor3 = themeList.SchemeColor
+	titleLabel.TextSize = 16
+	titleLabel.TextXAlignment = Enum.TextXAlignment.Left
+	
+	messageLabel.Name = "MessageLabel"
+	messageLabel.Parent = notificationFrame
+	messageLabel.BackgroundTransparency = 1
+	messageLabel.Position = UDim2.new(0, 12, 0, 30)
+	messageLabel.Size = UDim2.new(0, 300, 0, 40)
+	messageLabel.Font = Enum.Font.Gotham
+	messageLabel.Text = message
+	messageLabel.TextColor3 = themeList.TextColor
+	messageLabel.TextSize = 14
+	messageLabel.TextWrapped = true
+	messageLabel.TextXAlignment = Enum.TextXAlignment.Left
+	messageLabel.TextYAlignment = Enum.TextYAlignment.Top
+	
+	closeButton.Name = "CloseButton"
+	closeButton.Parent = notificationFrame
+	closeButton.BackgroundTransparency = 1
+	closeButton.Position = UDim2.new(1, -30, 0, 10)
+	closeButton.Size = UDim2.new(0, 18, 0, 18)
+	closeButton.Image = "rbxassetid://6035047409" -- Современная иконка закрытия
+	closeButton.ImageColor3 = themeList.SchemeColor
+	
+	-- Добавляем полоску индикатора времени
+	local timeIndicator = Instance.new("Frame")
+	timeIndicator.Name = "TimeIndicator"
+	timeIndicator.Parent = notificationFrame
+	timeIndicator.BackgroundColor3 = themeList.SchemeColor
+	timeIndicator.BorderSizePixel = 0
+	timeIndicator.Position = UDim2.new(0, 0, 1, -2)
+	timeIndicator.Size = UDim2.new(1, 0, 0, 2)
+	
+	-- Анимация появления
+	TweenService:Create(notificationFrame, TweenInfo.new(0.5, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
+		Position = UDim2.new(0, 0, 0, 0)
+	}):Play()
+	
+	-- Анимация индикатора времени
+	TweenService:Create(timeIndicator, TweenInfo.new(duration, Enum.EasingStyle.Linear), {
+		Size = UDim2.new(0, 0, 0, 2)
+	}):Play()
+	
+	-- Закрытие по нажатию
+	closeButton.MouseButton1Click:Connect(function()
+		TweenService:Create(notificationFrame, TweenInfo.new(0.5, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
+			Position = UDim2.new(1, 0, 0, 0)
+		}):Play()
+		task.wait(0.5)
+		notificationContainer:Destroy()
+	end)
+	
+	-- Автоматическое закрытие
+	task.delay(duration, function()
+		if notificationContainer and notificationContainer.Parent then
+			TweenService:Create(notificationFrame, TweenInfo.new(0.5, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
+				Position = UDim2.new(1, 0, 0, 0)
+			}):Play()
+			task.wait(0.5)
+			notificationContainer:Destroy()
+		end
+	end)
+	
+	return notificationContainer
+end
+
 return Kavo
