@@ -50,7 +50,6 @@ end
 function Utility:TweenObject(obj, properties, duration, ...)
 	TweenService:Create(obj, tweeninfo(duration, ...), properties):Play()
 end
-
 local themeStyles = {
 	BloodTheme = {
 		SchemeColor = Color3.fromRGB(85, 170, 255),  -- Более яркий голубой
