@@ -8,6 +8,34 @@ local Window = Library.CreateLib("Revi Syka | V1.0","BloodTheme")
 
 -------------------------------------------------------------------
 
+local Freeshka = Window:NewTab("Фришки")
+local FreeshkaSection = Freeshka:NewSection("Скрипты")
+
+FreeshkaSection:NewButton("Удалить всю карту", "удаляет карту ремотка DeleteCar or RemoveCar", function()
+	for _,n in ipairs(game.ReplicatedStorage:GetDescendants()) do
+        if n:IsA("RemoteEvent") then
+            if n.Name == "RemoveCar" or n.Name == "RemoveCars" or n.Name == "DeleteCar" then
+                for _,i in ipairs(workspace:GetChildren()) do
+                    n:FireServer(i)
+                end
+            end
+        end
+    end
+end)
+
+FreeshkaSection:NewButton("Включает звуки на всю карту", "уязвимость машин Rev", function()
+	for _,n in ipairs(workspace:GetDescendants()) do
+		if n:IsA("Model") then
+			if n:FindFirstChild("DriveSeat") then
+				n:FindFirstChild("AC6_FE_Sounds"):FireServer("newSound","Rev",game.SoundService, "rbxassetid://108908943530640", 1, 10, true)
+				n:FindFirstChild("AC6_FE_Sounds"):FireServer("playSound","Rev")
+			end
+		end
+	end
+end)
+
+-------------------------------------------------------------------
+
 local Skripts = Window:NewTab("Скрипты да?")
 local SkriptsSection = Skripts:NewSection("Скрипты")
 
@@ -33,50 +61,6 @@ end)
 
 SkriptsSection:NewButton("ESP + Aimbot", "чо писать", function()
 	loadstring(game:HttpGet("https://cdn.wearedevs.net/scripts/Universal%20ESP%20+%20Aimbot.txt"))()
-end)
-
-SkriptsSection:NewButton("Авто фарм Боровск Рыбалка", "чо писать", function()
-	local Fishing = ReplicatedStorage.Remotes.Fishing
-	local SellFish_upvr = Fishing.SellFish
-
-	local function sellAllItems()
-		for _, item in pairs(Player.Backpack:GetChildren()) do
-			if item:IsA("Tool") and item.Name ~= "Удочка" then
-				SellFish_upvr:FireServer("Sell", item.Name)
-			end
-		end
-	end
-
-	task.spawn(function()
-		while task.wait(10) do
-			sellAllItems()
-		end
-	end)
-
-	local function onChildAdded(child)
-		if child:IsA("Tool") then
-			SellFish_upvr:FireServer("Sell", child.Name)
-		end
-	end
-
-	Player.Backpack.ChildAdded:Connect(onChildAdded)
-
-	while task.wait(.01) do
-		local waterEffect = workspace:FindFirstChild("FishingWorkspace")
-		local fishingGui = Player.PlayerGui:FindFirstChild("FishingGui")
-		if fishingGui and fishingGui:FindFirstChild("CancelButton") then
-			if not waterEffect or not waterEffect:FindFirstChild("Kruchok") then
-				fishingGui.CancelButton.Visible = false
-			elseif waterEffect.Kruchok:FindFirstChild("WaterEffect") then
-				local effect = waterEffect.Kruchok.WaterEffect
-				if effect.Enabled then
-					fishingGui.CancelButton.Visible = true
-				else
-					fishingGui.CancelButton.Visible = false
-				end
-			end
-		end
-	end 
 end)
 -------------------------------------------------------------------
 local ACS = Window:NewTab("ACS")
